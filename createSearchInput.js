@@ -22,8 +22,10 @@ createSearchInput.prototype.addEventListeners = function () {
 };
 
 createSearchInput.prototype.keyUpListener = function (e) {
+	e.preventDefault();
 	const results = trieSearch.search(e.target.value.toLowerCase());
 	this.listBox.createListItem(results, e.target.value);
+	e.stopPropagation();
 };
 
 createSearchInput.prototype.addListBox = function (elem) {
