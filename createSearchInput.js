@@ -11,10 +11,8 @@ createSearchInput.prototype.init = function () {
 };
 
 createSearchInput.prototype.addStyles = function () {
-	this.element.style.width = "60vw";
-	this.element.style.height = "5vh";
-	this.element.style.borderRadius = "5vh";
 	this.element.style.paddingLeft = "3vh";
+	this.element.placeholder = "Search";
 };
 
 createSearchInput.prototype.addEventListeners = function () {

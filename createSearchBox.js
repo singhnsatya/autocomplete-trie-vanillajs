@@ -8,6 +8,7 @@ function createSearchBox() {
 
 createSearchBox.prototype.init = function () {
 	this.element = document.createElement("div");
+	this.element.classList.add("search-box");
 	this.ulElement = document.createElement("ul");
 	this.element.appendChild(this.ulElement);
 };
@@ -15,12 +16,19 @@ createSearchBox.prototype.init = function () {
 createSearchBox.prototype.createListItem = function (results, inputValue) {
 	this.clearList();
 	this.clearList();
+	if (inputValue === "" || inputValue === undefined || results.length <= 0) {
+		this.element.style.display = "none";
+	} else {
+		this.element.style.display = "block";
+	}
 	inputValue !== "" &&
 		results &&
 		results !== undefined &&
 		results.forEach((word, index) => {
 			const listElem = document.createElement("li");
-			listElem.innerHTML = word.toString();
+			listElem.innerHTML =
+				`<b>${word.substr(0, inputValue.length)}</b>` +
+				`${word.substr(inputValue.length, word.length)}`;
 			this.element.appendChild(listElem);
 		});
 };
