@@ -2,6 +2,7 @@ function createSearchBox() {
 	this.words = [];
 	this.element = null;
 	this.ulElement = null;
+	this.inputRef = null;
 	this.init();
 	this.createListItem();
 }
@@ -24,11 +25,16 @@ createSearchBox.prototype.createListItem = function (results, inputValue) {
 	inputValue !== "" &&
 		results &&
 		results !== undefined &&
-		results.forEach((word, index) => {
+		results.forEach((word) => {
 			const listElem = document.createElement("li");
+			listElem.setAttribute("id", word);
+			listElem.addEventListener("click", (e) => this.onItemClick(e));
 			listElem.innerHTML =
-				`<b>${word.substr(0, inputValue.length)}</b>` +
-				`${word.substr(inputValue.length, word.length)}`;
+				`<b id='${word}'>${word.substr(0, inputValue.length)}</b>` +
+				`<span id='${word}'>${word.substr(
+					inputValue.length,
+					word.length
+				)}</span>`;
 			this.element.appendChild(listElem);
 		});
 };
@@ -40,4 +46,14 @@ createSearchBox.prototype.clearList = function () {
 		childListNodes.forEach((i, j) => {
 			i.remove();
 		});
+};
+
+createSearchBox.prototype.setInputRef = function (that) {
+	this.inputRef = that;
+};
+
+createSearchBox.prototype.onItemClick = function (e) {
+	e.preventDefault();
+	this.inputRef.onSelect(e.target.id);
+	e.stopPropagation();
 };

@@ -28,8 +28,14 @@ createSearchInput.prototype.keyUpListener = function (e) {
 
 createSearchInput.prototype.addListBox = function (elem) {
 	this.listBox = elem;
+	this.setInputRefInBox();
 };
 
-createSearchInput.prototype.makeListBox = function (results) {
-	this.listBox.createListItem(results);
+createSearchInput.prototype.setInputRefInBox = function () {
+	this.listBox.setInputRef(this);
+};
+
+createSearchInput.prototype.onSelect = function (value) {
+	this.element.value = value;
+	this.listBox.element.style.display = "none";
 };
